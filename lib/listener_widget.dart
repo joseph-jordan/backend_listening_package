@@ -10,10 +10,13 @@ abstract class ListenerWidgetState<T> extends State<StatefulWidget> {
 
   List<ListenerClient> getUsedListenerClients();
 
+  List<ListenerClient> copyOfUsedListenerClients;
+
   @override
   void initState() {
     super.initState();
-    for (ListenerClient client in getUsedListenerClients()) {
+    copyOfUsedListenerClients = getUsedListenerClients();
+    for (ListenerClient client in copyOfUsedListenerClients) {
       client.updateSubscriptionGenerator();
       Store store = client.getStore();
       store.getListener().beginListening(_onUpdateCallBack, client);
@@ -23,13 +26,13 @@ abstract class ListenerWidgetState<T> extends State<StatefulWidget> {
   @override
   void dispose() {
     super.dispose();
-    for (ListenerClient client in getUsedListenerClients()) {
+    for (ListenerClient client in copyOfUsedListenerClients) {
       Store store = client.getStore();
       store.getListener().terminateSubscription(client);
     }
   }
 
   bool allDataLoaded() {
-    return getUsedListenerClients().every((ListenerClient client) => client.getStore().isLoaded());
+    return copyOfUsedListenerClients.every((ListenerClient client) => client.getStore().isLoaded());
   }
 }

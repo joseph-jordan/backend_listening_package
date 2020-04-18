@@ -1,7 +1,6 @@
 name: backend_listening_package
 description: package to listen to firestore updates
-version: 0.0.4
-author: jjordan1513@gmail.com
+version: 0.0.8
 homepage: https://www.get-queue.com
 
 environment:

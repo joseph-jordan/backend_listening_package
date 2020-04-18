@@ -40,6 +40,7 @@ class QueueListener<T> {
     }
     _onUpdateCallBacks[client.getClientID()] = onUpdate;
     _generateStream(client);
+
   }
 
   void updateSubscriptionGenerator(SubscriptionGenerator newSubscriptionGenerator, ListenerClient client) {
